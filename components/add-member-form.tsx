@@ -1,0 +1,5 @@
+"use client";
+import {useState} from "react";import {addMember} from "@/lib/actions/members";
+export function AddMemberForm(){const[name,setName]=useState(""),[position,setPosition]=useState(""),[pending,setPending]=useState(false);
+async function submit(e:React.FormEvent){e.preventDefault();setPending(true);try{await addMember(name,position);setName("");setPosition("");}catch(e){alert(e instanceof Error?e.message:"저장에 실패했습니다.");}finally{setPending(false);}}
+return <form onSubmit={submit} className="card p-4 space-y-3"><b>구성원 추가</b><div className="grid grid-cols-1 sm:grid-cols-2 gap-2"><input className="field" value={name} onChange={e=>setName(e.target.value)} placeholder="이름"/><input className="field" value={position} onChange={e=>setPosition(e.target.value)} placeholder="직책 (선택)"/></div><button className="btn btn-primary" disabled={pending}>{pending?"저장 중...":"추가"}</button></form>}

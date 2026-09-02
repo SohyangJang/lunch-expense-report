@@ -1,0 +1,5 @@
+"use client";
+import {useState} from "react";import {addRestaurant} from "@/lib/actions/restaurants";
+export function AddRestaurantForm(){const[name,setName]=useState(""),[menu,setMenu]=useState(""),[pending,setPending]=useState(false);
+async function submit(e:React.FormEvent){e.preventDefault();setPending(true);try{await addRestaurant(name,menu);setName("");setMenu("");}catch(e){alert(e instanceof Error?e.message:"저장에 실패했습니다.");}finally{setPending(false);}}
+return <form onSubmit={submit} className="card p-4 space-y-3"><b>식당 추가</b><div className="grid grid-cols-1 sm:grid-cols-2 gap-2"><input className="field" value={name} onChange={e=>setName(e.target.value)} placeholder="식당명"/><input className="field" value={menu} onChange={e=>setMenu(e.target.value)} placeholder="대표 메뉴 (선택)"/></div><button className="btn btn-primary" disabled={pending}>{pending?"저장 중...":"추가"}</button></form>}

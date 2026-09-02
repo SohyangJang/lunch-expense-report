@@ -1,0 +1,2 @@
+import {getRestaurants} from "@/lib/actions/restaurants";import {AddRestaurantForm} from "@/components/add-restaurant-form";
+export default async function RestaurantsPage(){const restaurants=await getRestaurants();return <main className="py-7"><div className="container-app space-y-5"><h1 className="text-2xl font-black">식당 관리</h1><AddRestaurantForm/><div className="card divide-y overflow-hidden">{restaurants.map(r=><div key={r.id} className="p-4"><b>{r.name}</b><div className="text-sm text-gray-500 mt-1">{r.menu??"-"}</div></div>)}</div></div></main>}
